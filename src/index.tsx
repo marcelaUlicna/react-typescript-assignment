@@ -1,9 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import * as JQuery from "jquery";
-
-import { IPanel, ITask } from "../components/common";
+import { ITask } from "../components/common";
 import { Panel } from "../components/panel";
 
 const task: ITask = {
