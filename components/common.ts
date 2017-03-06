@@ -1,3 +1,5 @@
+import { ISelect2Data, ISelect2Options, ISelect2 } from "./select2/select2";
+
 export enum AssigneeOption {
     Specific,
     Auto,
@@ -6,11 +8,14 @@ export enum AssigneeOption {
 
 // compponent states
 export interface IAssignee {
-    option: AssigneeOption,
-    userIds: Array<number>;
+    option: AssigneeOption;
+    userIds: number[];
+    userModel: ISelect2Data[];
     preferences: string;
-    companyTagIds: Array<number>;
-    userTagIds: Array<number>;
+    companyTagIds: number[];
+    companyTagModel: ISelect2Data[];
+    userTagIds: number[];
+    userTagModel: ISelect2Data[];
     taskName: string;
 }
 
@@ -19,12 +24,24 @@ export interface ITask {
     taskId: number;
     hasPreviousTask: boolean;
     title: string;
+    assigneeOptions: IAssignee
 }
 
 export interface IPanel {
     model: ITask;
 }
 
+export interface ISwitchPanel {
+    option: IAssignee;
+}
+
 export interface IAssigneePanel {
-    option: AssigneeOption
+    option: AssigneeOption;
+    component: IAssignee;
+}
+
+// option panels
+
+export interface ISpecific {
+    users: ISelect2Data[];
 }

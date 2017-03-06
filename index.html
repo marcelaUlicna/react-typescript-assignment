@@ -5,13 +5,38 @@
         <title>Assignment</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./node_modules/select2-bootstrap-css/select2-bootstrap-css.css">
+        <link rel="stylesheet" href="./node_modules/select2/select2.css">
         <link rel="stylesheet" href="./dist/app.css">
     </head>
     <body>
-        <div id="example"></div>
+        <div class="container">
+            <h3>Example</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Single select</h4>
+                    <div id="selectSingle"></div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Multiple select</h4>
+                    <div id="selectMultiple"></div>
+                </div>
+            </div>
+
+            <div class="well well-white" style="margin-top: 20px;">
+                <form action="/api/assignment" method="post">
+                    <div class="form-group">
+                        <div id="example"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
 
         <!-- Dependencies -->
         <script src="./node_modules/jquery/dist/jquery.js"></script>
+        <script src="./node_modules/select2/select2.js"></script>
         <script src="./node_modules/react/dist/react.js"></script>
         <script src="./node_modules/react-dom/dist/react-dom.js"></script>
         

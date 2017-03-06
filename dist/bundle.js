@@ -11,16 +11,16 @@
 /******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/
 /******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
+/******/ 		module.loaded = true;
 /******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -33,277 +33,445 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = React;
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(2);
+	// assignee component
+	var common_1 = __webpack_require__(3);
+	var panel_1 = __webpack_require__(4);
+	var task = {
+	    taskId: 10023,
+	    title: "Assignees",
+	    hasPreviousTask: true,
+	    assigneeOptions: {
+	        option: common_1.AssigneeOption.Specific,
+	        userIds: [3, 4, 6, 7],
+	        userModel: [
+	            { "id": 3, "text": "Bryant E. Aiello" },
+	            { "id": 4, "text": "Linda Alston" },
+	            { "id": 6, "text": "Stephen Quincy" },
+	            { "id": 7, "text": "Floyd Lloyd" }
+	        ],
+	        preferences: "1",
+	        companyTagIds: [],
+	        companyTagModel: [],
+	        userTagIds: [],
+	        userTagModel: [],
+	        taskName: ""
+	    }
+	};
+	ReactDOM.render(React.createElement(panel_1.Panel, { model: task }), document.getElementById("example"));
+	// Select2 components
+	var select2_1 = __webpack_require__(8);
+	var selectData = [
+	    { "id": 3, "text": "Bryant E. Aiello" },
+	    { "id": 4, "text": "Linda Alston" },
+	    { "id": 6, "text": "Stephen Quincy" },
+	    { "id": 7, "text": "Floyd Lloyd" }
+	];
+	ReactDOM.render(React.createElement(select2_1.Select2Ajax, { id: "userPicker1", name: "userPicker1", url: "/api/users", multiple: true, placeholder: "Select users", required: true, data: selectData }), document.getElementById("selectMultiple"));
+	ReactDOM.render(React.createElement(select2_1.Select2Ajax, { id: "userPicker2", name: "userPicker2", url: "/api/users", placeholder: "Select users", required: true, data: [] }), document.getElementById("selectSingle"));
 
-/***/ }),
+
+/***/ },
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-"use strict";
+	module.exports = React;
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var AssigneeOption;
-(function (AssigneeOption) {
-    AssigneeOption[AssigneeOption["Specific"] = 0] = "Specific";
-    AssigneeOption[AssigneeOption["Auto"] = 1] = "Auto";
-    AssigneeOption[AssigneeOption["ByTask"] = 2] = "ByTask";
-})(AssigneeOption = exports.AssigneeOption || (exports.AssigneeOption = {}));
-
-
-/***/ }),
+/***/ },
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-"use strict";
+	module.exports = ReactDOM;
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var switchPanel_1 = __webpack_require__(5);
-var Panel = (function (_super) {
-    __extends(Panel, _super);
-    function Panel() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Panel.prototype.render = function () {
-        return (React.createElement("div", { className: "container" },
-            React.createElement("div", null,
-                React.createElement("div", { className: "row" },
-                    React.createElement("div", { className: "col-md-6  well well-white assignee-component" },
-                        React.createElement("h4", null,
-                            React.createElement("strong", null, this.props.model.title)),
-                        React.createElement(switchPanel_1.SwitchPanel, null)),
-                    React.createElement("div", { className: "col-md-6" },
-                        React.createElement("h3", null, "right panel"))))));
-    };
-    return Panel;
-}(React.Component));
-exports.Panel = Panel;
-
-
-/***/ }),
+/***/ },
 /* 3 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
 
-module.exports = ReactDOM;
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var AssigneeOption;
+	(function (AssigneeOption) {
+	    AssigneeOption[AssigneeOption["Specific"] = 0] = "Specific";
+	    AssigneeOption[AssigneeOption["Auto"] = 1] = "Auto";
+	    AssigneeOption[AssigneeOption["ByTask"] = 2] = "ByTask";
+	})(AssigneeOption = exports.AssigneeOption || (exports.AssigneeOption = {}));
 
-/***/ }),
+
+/***/ },
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var common_1 = __webpack_require__(1);
-var AssigneePanel = (function (_super) {
-    __extends(AssigneePanel, _super);
-    function AssigneePanel() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    AssigneePanel.prototype.render = function () {
-        switch (this.props.option) {
-            case common_1.AssigneeOption.Specific:
-                return React.createElement(SpecificSection, null);
-            case common_1.AssigneeOption.Auto:
-                return React.createElement(AutoSection, null);
-            case common_1.AssigneeOption.ByTask:
-                return React.createElement(ByTaskSection, null);
-            default:
-                React.createElement("div", null, "Unknown option");
-        }
-    };
-    return AssigneePanel;
-}(React.Component));
-exports.AssigneePanel = AssigneePanel;
-var SpecificSection = (function (_super) {
-    __extends(SpecificSection, _super);
-    function SpecificSection(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = { users: [] };
-        return _this;
-    }
-    Object.defineProperty(SpecificSection.prototype, "userNames", {
-        get: function () {
-            return this.state.users.map(function (u) { return u.name; }).join();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SpecificSection.prototype, "userIds", {
-        get: function () {
-            return this.state.users.map(function (u) { return u.id; }).join();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SpecificSection.prototype.handlePickerChange = function (event) {
-    };
-    SpecificSection.prototype.render = function () {
-        return (React.createElement("div", { className: "form" },
-            React.createElement("div", { className: "form-group" },
-                React.createElement("select", { className: "specific-picker form-control" },
-                    React.createElement("option", { value: "1" }, "User 1"),
-                    React.createElement("option", { value: "2" }, "User 2"),
-                    React.createElement("option", { value: "3" }, "User 3"),
-                    React.createElement("option", { value: "4" }, "User 4"),
-                    React.createElement("option", { value: "5" }, "User 5")))));
-    };
-    return SpecificSection;
-}(React.Component));
-var AutoSection = (function (_super) {
-    __extends(AutoSection, _super);
-    function AutoSection() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    AutoSection.prototype.render = function () {
-        return (React.createElement("div", null, "Auto option"));
-    };
-    return AutoSection;
-}(React.Component));
-var ByTaskSection = (function (_super) {
-    __extends(ByTaskSection, _super);
-    function ByTaskSection() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ByTaskSection.prototype.render = function () {
-        return (React.createElement("div", null, "By task option"));
-    };
-    return ByTaskSection;
-}(React.Component));
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var switchPanel_1 = __webpack_require__(5);
+	var Panel = (function (_super) {
+	    __extends(Panel, _super);
+	    function Panel() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    Panel.prototype.render = function () {
+	        return (React.createElement("div", { className: "assignee-component" },
+	            React.createElement("h4", null,
+	                React.createElement("strong", null, this.props.model.title)),
+	            React.createElement("div", { className: "row" },
+	                React.createElement("div", { className: "col-md-9" },
+	                    React.createElement(switchPanel_1.SwitchPanel, { option: this.props.model.assigneeOptions })),
+	                React.createElement("div", { className: "col-md-3" },
+	                    React.createElement("button", { className: "btn btn-primary show-assignee-button" }, "Show task assignees")))));
+	    };
+	    return Panel;
+	}(React.Component));
+	exports.Panel = Panel;
 
 
-/***/ }),
+/***/ },
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var common_1 = __webpack_require__(1);
-var assigneePanel_1 = __webpack_require__(4);
-var SwitchPanel = (function (_super) {
-    __extends(SwitchPanel, _super);
-    function SwitchPanel(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            option: common_1.AssigneeOption.Specific,
-            userIds: [],
-            preferences: "1",
-            companyTagIds: [],
-            userTagIds: [],
-            taskName: ""
-        };
-        _this.handleOptionChange = _this.handleOptionChange.bind(_this);
-        return _this;
-    }
-    SwitchPanel.prototype.handleOptionChange = function (event) {
-        this.setState({ option: Number(event.target.value) });
-    };
-    SwitchPanel.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement("div", { className: "radio" },
-                React.createElement("label", { className: "radio-switch" },
-                    React.createElement("input", { type: "radio", value: common_1.AssigneeOption.Specific, checked: this.state.option == common_1.AssigneeOption.Specific, onChange: this.handleOptionChange }),
-                    "specific"),
-                React.createElement("label", { className: "radio-switch" },
-                    React.createElement("input", { type: "radio", value: common_1.AssigneeOption.Auto, checked: this.state.option == common_1.AssigneeOption.Auto, onChange: this.handleOptionChange }),
-                    "auto"),
-                React.createElement("label", { className: "radio-switch" },
-                    React.createElement("input", { type: "radio", value: common_1.AssigneeOption.ByTask, checked: this.state.option == common_1.AssigneeOption.ByTask, onChange: this.handleOptionChange }),
-                    "by task")),
-            React.createElement(assigneePanel_1.AssigneePanel, { option: this.state.option })));
-    };
-    return SwitchPanel;
-}(React.Component));
-exports.SwitchPanel = SwitchPanel;
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var common_1 = __webpack_require__(3);
+	var assigneePanel_1 = __webpack_require__(6);
+	var SwitchPanel = (function (_super) {
+	    __extends(SwitchPanel, _super);
+	    function SwitchPanel(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {
+	            radioValue: _this.props.option.option
+	        };
+	        _this.handleOptionChange = _this.handleOptionChange.bind(_this);
+	        return _this;
+	    }
+	    SwitchPanel.prototype.handleOptionChange = function (event) {
+	        var value = event.target.value;
+	        this.setState({ radioValue: Number(common_1.AssigneeOption[value]) });
+	    };
+	    SwitchPanel.prototype.render = function () {
+	        return (React.createElement("div", null,
+	            React.createElement("div", { className: "radio" },
+	                React.createElement("label", { className: "radio-switch" },
+	                    React.createElement("input", { type: "radio", value: "Specific", name: "AssignmentOption", checked: this.state.radioValue == common_1.AssigneeOption.Specific, onChange: this.handleOptionChange }),
+	                    "by name"),
+	                React.createElement("label", { className: "radio-switch" },
+	                    React.createElement("input", { type: "radio", value: "Auto", name: "AssignmentOption", checked: this.state.radioValue == common_1.AssigneeOption.Auto, onChange: this.handleOptionChange }),
+	                    "by preference"),
+	                React.createElement("label", { className: "radio-switch" },
+	                    React.createElement("input", { type: "radio", value: "ByTask", name: "AssignmentOption", checked: this.state.radioValue == common_1.AssigneeOption.ByTask, onChange: this.handleOptionChange }),
+	                    "by other task")),
+	            React.createElement(assigneePanel_1.AssigneePanel, { option: this.state.radioValue, component: this.props.option })));
+	    };
+	    return SwitchPanel;
+	}(React.Component));
+	exports.SwitchPanel = SwitchPanel;
 
 
-/***/ }),
+/***/ },
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-"use strict";
+	///<reference path="../src/typings.d.ts" />
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var common_1 = __webpack_require__(3);
+	var specific_1 = __webpack_require__(7);
+	var auto_1 = __webpack_require__(9);
+	var task_1 = __webpack_require__(10);
+	var AssigneePanel = (function (_super) {
+	    __extends(AssigneePanel, _super);
+	    function AssigneePanel(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = _this.props.component;
+	        return _this;
+	    }
+	    AssigneePanel.prototype.render = function () {
+	        switch (this.props.option) {
+	            case common_1.AssigneeOption.Specific:
+	                return React.createElement(specific_1.SpecificSection, { users: this.state.userModel });
+	            case common_1.AssigneeOption.Auto:
+	                return React.createElement(auto_1.AutoSection, null);
+	            case common_1.AssigneeOption.ByTask:
+	                return React.createElement(task_1.ByTaskSection, null);
+	            default:
+	                React.createElement("div", null, "Unknown option");
+	        }
+	    };
+	    return AssigneePanel;
+	}(React.Component));
+	exports.AssigneePanel = AssigneePanel;
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var ReactDOM = __webpack_require__(3);
-var panel_1 = __webpack_require__(2);
-var task = {
-    taskId: 10023,
-    title: "Assignee",
-    hasPreviousTask: true
-};
-ReactDOM.render(React.createElement(panel_1.Panel, { model: task }), document.getElementById("example"));
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var select2_1 = __webpack_require__(8);
+	var SpecificSection = (function (_super) {
+	    __extends(SpecificSection, _super);
+	    function SpecificSection(props) {
+	        return _super.call(this, props) || this;
+	    }
+	    SpecificSection.prototype.render = function () {
+	        return (React.createElement("div", { className: "" },
+	            React.createElement("div", { className: "row" },
+	                React.createElement("div", { className: "col-sm-12" },
+	                    React.createElement(select2_1.Select2Ajax, { id: "userPicker", name: "userPicker", url: "/api/users", multiple: true, placeholder: "Select users", required: true, data: this.props.users })))));
+	    };
+	    return SpecificSection;
+	}(React.Component));
+	exports.SpecificSection = SpecificSection;
 
 
-/***/ })
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	///<reference path="../../src/typings.d.ts" />
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var Select2Ajax = (function (_super) {
+	    __extends(Select2Ajax, _super);
+	    function Select2Ajax(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {
+	            selectedValues: _this.props.data || []
+	        };
+	        _this.handlePickerChange = _this.handlePickerChange.bind(_this);
+	        return _this;
+	    }
+	    Object.defineProperty(Select2Ajax.prototype, "ids", {
+	        get: function () {
+	            return this.state.selectedValues.map(function (d) { return d.id; }).join();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Select2Ajax.prototype, "texts", {
+	        get: function () {
+	            return this.state.selectedValues.map(function (d) { return d.text; }).join();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Select2Ajax.prototype.componentDidMount = function () {
+	        var _this = this;
+	        var element = $("#" + this.props.id);
+	        element.select2({
+	            placeholder: this.props.placeholder,
+	            multiple: this.props.multiple === true,
+	            allowClear: this.props.allowClear === true,
+	            minimumInputLength: this.props.minimumInputLength || 0,
+	            ajax: {
+	                url: this.props.url,
+	                dataType: 'json',
+	                quietMillis: 100,
+	                data: function (term, page) {
+	                    return {
+	                        query: term,
+	                        page: page // page number
+	                    };
+	                },
+	                results: function (data, page) {
+	                    var more = (page * data.pagination) < data.totalCount;
+	                    return { results: data.items, more: more };
+	                }
+	            },
+	            escapeMarkup: function (m) { return m; },
+	            initSelection: function (element, callback) {
+	                callback(_this.state.selectedValues);
+	            }
+	        });
+	        element.on('change', function (e) { return _this.handlePickerChange(e); });
+	    };
+	    Select2Ajax.prototype.handlePickerChange = function (event) {
+	        var added = event.added;
+	        var removed = event.removed;
+	        if (!this.props.multiple) {
+	            this.setState({ selectedValues: [added] });
+	        }
+	        else {
+	            if (!!added) {
+	                this.setState(function (prev, props) {
+	                    prev.selectedValues.push(added);
+	                    return prev;
+	                });
+	            }
+	            else if (!!removed) {
+	                this.setState(function (prev, props) {
+	                    var actualVal = prev.selectedValues.filter(function (val) { return val.id != removed.id; });
+	                    prev.selectedValues = actualVal;
+	                    return prev;
+	                });
+	            }
+	            else {
+	                console.log("no value changed");
+	            }
+	        }
+	    };
+	    Select2Ajax.prototype.render = function () {
+	        return React.createElement("input", { className: "full-width", name: this.props.name, type: "text", id: this.props.id, value: this.ids, onChange: this.handlePickerChange });
+	    };
+	    return Select2Ajax;
+	}(React.Component));
+	exports.Select2Ajax = Select2Ajax;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var select2_1 = __webpack_require__(8);
+	var AutoSection = (function (_super) {
+	    __extends(AutoSection, _super);
+	    function AutoSection(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {
+	            preferences: "1",
+	            companyTags: [],
+	            userTags: []
+	        };
+	        _this.handlePreferenceChange = _this.handlePreferenceChange.bind(_this);
+	        return _this;
+	    }
+	    AutoSection.prototype.handlePreferenceChange = function (event) {
+	        this.setState({ preferences: event.target.value });
+	    };
+	    AutoSection.prototype.render = function () {
+	        return (React.createElement("div", { className: "row" },
+	            React.createElement("div", { className: "col-sm-4" },
+	                React.createElement("label", null, "Supplier preferences"),
+	                React.createElement("input", { className: "form-control", value: this.state.preferences, onChange: this.handlePreferenceChange }),
+	                React.createElement("small", { className: "text-muted" }, "separate preferences by semicolon")),
+	            React.createElement("div", { className: "col-sm-4" },
+	                React.createElement("label", null, "Supplier company tag"),
+	                React.createElement(select2_1.Select2Ajax, { id: "companyTagPicker", name: "companyTagPicker", url: "/api/tags", multiple: true, placeholder: "Choose tags", data: [] })),
+	            React.createElement("div", { className: "col-sm-4" },
+	                React.createElement("label", null, "User tag"),
+	                React.createElement(select2_1.Select2Ajax, { id: "userTagPicker", name: "userTagPicker", url: "/api/tags", multiple: true, placeholder: "Choose tags", data: [] }))));
+	    };
+	    return AutoSection;
+	}(React.Component));
+	exports.AutoSection = AutoSection;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var select2_1 = __webpack_require__(8);
+	var ByTaskSection = (function (_super) {
+	    __extends(ByTaskSection, _super);
+	    function ByTaskSection() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    ByTaskSection.prototype.render = function () {
+	        return (React.createElement("div", { className: "form-group" },
+	            React.createElement("div", { className: "row" },
+	                React.createElement("div", { className: "col-sm-12" },
+	                    React.createElement(select2_1.Select2Ajax, { id: "taskPicker", name: "taskPicker", url: "/api/tasks", multiple: false, placeholder: "Select task" }),
+	                    React.createElement("small", { className: "text-muted" }, "Set the same assignee as on the selected task from current workflow.")))));
+	    };
+	    return ByTaskSection;
+	}(React.Component));
+	exports.ByTaskSection = ByTaskSection;
+
+
+/***/ }
 /******/ ]);
 //# sourceMappingURL=bundle.js.map

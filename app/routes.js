@@ -1,58 +1,52 @@
-var Todo = require('./models/todo');
+var Users = require('./data/users');
+var Tags = require('./data/tags');
+var Tasks = require('./data/tasks');
 
 module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
-	// get all todos
-	app.get('/api/todos', function(req, res) {
+	// GET
+	app.get('/api/users', function(req, res) {
+		let users = getPickerData(Users.items.slice(), req.query.query, req.query.page, Users.pagination);
 
-		// use mongoose to get all todos in the database
-		Todo.find(function(err, todos) {
-
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-
-			res.json(todos); // return all todos in JSON format
+		res.json({
+			items: users,
+			totalCount: Users.totalCount,
+    		pagination: Users.pagination
 		});
 	});
 
+	app.get('/api/tags', function(req, res) {
+		let tags = getPickerData(Tags.items.slice(), req.query.query, req.query.page, Tags.pagination);
+
+		res.json({
+			items: tags,
+			totalCount: Tags.totalCount,
+    		pagination: Tags.pagination
+		});
+	});
+
+	app.get('/api/tasks', function(req, res) {
+		let tasks = getPickerData(Tasks.items.slice(), req.query.query, req.query.page, Tasks.pagination);
+
+		res.json({
+			items: tasks,
+			totalCount: Tasks.totalCount,
+    		pagination: Tasks.pagination
+		});
+	});
+
+	// POST
 	// create todo and send back all todos after creation
-	app.post('/api/todos', function(req, res) {
-
-		// create a todo, information comes from AJAX request from Angular
-		Todo.create({
-			text : req.body.text,
-			done : false
-		}, function(err, todo) {
-			if (err)
-				res.send(err);
-
-			// get and return all the todos after you create another
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-				res.json(todos);
-			});
-		});
-
+	app.post('/api/assignment', function(req, res) {
+		console.log(req.body);
+		res.json({status: "OK"});
 	});
 
+	// DELETE
 	// delete a todo
 	app.delete('/api/todos/:todo_id', function(req, res) {
-		Todo.remove({
-			_id : req.params.todo_id
-		}, function(err, todo) {
-			if (err)
-				res.send(err);
-
-			// get and return all the todos after you create another
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-				res.json(todos);
-			});
-		});
+		res.json({status: "OK"});
 	});
 
 	// application -------------------------------------------------------------
@@ -60,3 +54,45 @@ module.exports = function(app) {
 		res.sendfile('./index.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});
 };
+
+function getPickerData(entity, query, page, pagination) {
+	// sort array alphabetically
+	entity.sort(compare);
+
+	// apply query
+	if (!!query) {
+		const queryLower = query.toLowerCase().trim();
+
+		entity = entity.filter(function(value) {
+			return value.text.toLowerCase().indexOf(queryLower) !== -1;
+		});
+	}
+
+	let pageNumber = Number(page);
+	
+	// for negative or missing page, get first page
+	if (isNaN(pageNumber) || pageNumber < 1) {
+		pageNumber = 1;
+	}
+
+	// get next page
+	let endItem = pageNumber * pagination;
+	entity = entity.slice((endItem - pagination), endItem);
+
+	return entity;
+}
+
+function compare(a, b) {
+	const aTextLower = a.text.toLowerCase();
+	const bTextLower = b.text.toLowerCase();
+
+	if (aTextLower < bTextLower) {
+		return -1;
+	}
+
+	if (aTextLower > bTextLower) {
+		return 1;
+	}
+
+	return 0;
+}

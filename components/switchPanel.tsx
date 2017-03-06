@@ -1,25 +1,25 @@
 import * as React from "react";
 
-import { IAssignee, IPanel, AssigneeOption } from "./common";
+import { IAssignee, IPanel, AssigneeOption, ISwitchPanel } from "./common";
 import { AssigneePanel } from "./assigneePanel";
 
-export class SwitchPanel extends React.Component<any, IAssignee> {
+interface IRadio {
+    radioValue: AssigneeOption;
+}
+
+export class SwitchPanel extends React.Component<ISwitchPanel, IRadio> {
     constructor(props: any) {
         super(props);
         this.state = {
-            option: AssigneeOption.Specific,
-            userIds: [],
-            preferences: "1",
-            companyTagIds: [],
-            userTagIds: [],
-            taskName: ""
-        }
-
+            radioValue: this.props.option.option
+        };
+ 
         this.handleOptionChange = this.handleOptionChange.bind(this);
     }
 
     handleOptionChange(event: any) {
-       this.setState({ option: Number(event.target.value) });
+       const value = event.target.value;
+       this.setState({ radioValue: Number(AssigneeOption[value]) });
     }
 
     render() {
@@ -29,24 +29,29 @@ export class SwitchPanel extends React.Component<any, IAssignee> {
                     <label className="radio-switch">
                         <input 
                             type="radio" 
-                            value={AssigneeOption.Specific} 
-                            checked={this.state.option == AssigneeOption.Specific}
-                            onChange={this.handleOptionChange} />specific
+                            value="Specific"
+                            name="AssignmentOption"
+                            checked={this.state.radioValue == AssigneeOption.Specific}
+                            onChange={this.handleOptionChange} />by name
                     </label>
                     <label className="radio-switch">
-                        <input type="radio" 
-                        value={AssigneeOption.Auto} 
-                        checked={this.state.option == AssigneeOption.Auto}
-                        onChange={this.handleOptionChange} />auto
+                        <input 
+                            type="radio" 
+                            value="Auto"
+                            name="AssignmentOption"
+                            checked={this.state.radioValue == AssigneeOption.Auto}
+                            onChange={this.handleOptionChange} />by preference
                     </label>
                     <label className="radio-switch">
-                        <input type="radio" 
-                        value={AssigneeOption.ByTask} 
-                        checked={this.state.option == AssigneeOption.ByTask}
-                        onChange={this.handleOptionChange} />by task
+                        <input 
+                            type="radio" 
+                            value="ByTask"
+                            name="AssignmentOption"
+                            checked={this.state.radioValue == AssigneeOption.ByTask}
+                            onChange={this.handleOptionChange} />by other task
                     </label>
                 </div>
-                <AssigneePanel option={this.state.option} />
+                <AssigneePanel option={this.state.radioValue} component={this.props.option} />
             </div>
         );
     }
