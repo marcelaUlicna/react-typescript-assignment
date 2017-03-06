@@ -54,6 +54,7 @@
 	var task = {
 	    taskId: 10023,
 	    title: "Assignees",
+	    taskTitle: "Assignee for each task",
 	    hasPreviousTask: true,
 	    assigneeOptions: {
 	        option: common_1.AssigneeOption.Specific,
@@ -131,22 +132,69 @@
 	var switchPanel_1 = __webpack_require__(5);
 	var Panel = (function (_super) {
 	    __extends(Panel, _super);
-	    function Panel() {
+	    function Panel(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = { taskPanel: _this.props.taskAssigneePanel || false };
+	        _this.togglePanel = _this.togglePanel.bind(_this);
+	        return _this;
+	    }
+	    Panel.prototype.togglePanel = function () {
+	        this.setState(function (prev, props) { return prev.taskPanel = !prev.taskPanel; });
+	    };
+	    Panel.prototype.render = function () {
+	        return (React.createElement("div", null,
+	            React.createElement(AssignentComponent, { model: this.props.model, taskAssigneePanel: this.state.taskPanel, toggleTaskPanel: this.togglePanel }),
+	            React.createElement(TaskAssignmentComponent, { model: this.props.model, taskAssigneePanel: this.state.taskPanel, toggleTaskPanel: this.togglePanel })));
+	    };
+	    return Panel;
+	}(React.Component));
+	exports.Panel = Panel;
+	var AssignentComponent = (function (_super) {
+	    __extends(AssignentComponent, _super);
+	    function AssignentComponent() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
-	    Panel.prototype.render = function () {
-	        return (React.createElement("div", { className: "assignee-component" },
+	    Object.defineProperty(AssignentComponent.prototype, "style", {
+	        get: function () {
+	            return this.props.taskAssigneePanel ? { "display": "none" } : { "display": "block" };
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    AssignentComponent.prototype.render = function () {
+	        return (React.createElement("div", { className: "assignee-component", style: this.style },
 	            React.createElement("h4", null,
 	                React.createElement("strong", null, this.props.model.title)),
 	            React.createElement("div", { className: "row" },
 	                React.createElement("div", { className: "col-md-9" },
 	                    React.createElement(switchPanel_1.SwitchPanel, { option: this.props.model.assigneeOptions })),
 	                React.createElement("div", { className: "col-md-3" },
-	                    React.createElement("button", { className: "btn btn-primary show-assignee-button" }, "Show task assignees")))));
+	                    React.createElement("button", { type: "button", className: "btn btn-primary show-assignee-button", onClick: this.props.toggleTaskPanel }, "Show task assignees")))));
 	    };
-	    return Panel;
+	    return AssignentComponent;
 	}(React.Component));
-	exports.Panel = Panel;
+	var TaskAssignmentComponent = (function (_super) {
+	    __extends(TaskAssignmentComponent, _super);
+	    function TaskAssignmentComponent() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    TaskAssignmentComponent.prototype.render = function () {
+	        if (this.props.taskAssigneePanel) {
+	            return (React.createElement("div", { className: "task-assignee-component" },
+	                React.createElement("h4", null,
+	                    React.createElement("strong", null, this.props.model.taskTitle)),
+	                React.createElement("div", { className: "row" },
+	                    React.createElement("div", { className: "col-md-9" },
+	                        React.createElement("div", null, "Task assignment table")),
+	                    React.createElement("div", { className: "col-md-3" },
+	                        React.createElement("button", { type: "button", className: "btn btn-default btn-sm cancel-button pull-right", onClick: this.props.toggleTaskPanel }, "Cancel")))));
+	        }
+	        else {
+	            return React.createElement("div", null);
+	        }
+	    };
+	    return TaskAssignmentComponent;
+	}(React.Component));
 
 
 /***/ },

@@ -9,6 +9,7 @@ import { Panel } from "../components/panel";
 const task: ITask = {
     taskId: 10023,
     title: "Assignees",
+    taskTitle: "Assignee for each task",
     hasPreviousTask: true,
     assigneeOptions: {
         option: AssigneeOption.Specific,

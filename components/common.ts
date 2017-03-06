@@ -24,11 +24,14 @@ export interface ITask {
     taskId: number;
     hasPreviousTask: boolean;
     title: string;
-    assigneeOptions: IAssignee
+    taskTitle: string;
+    assigneeOptions: IAssignee;
 }
 
 export interface IPanel {
     model: ITask;
+    taskAssigneePanel?: boolean;
+    toggleTaskPanel?: () => void;
 }
 
 export interface ISwitchPanel {
