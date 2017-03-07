@@ -2,7 +2,8 @@
     background-color: white;
 }
 
-.assignee-component {
+.assignee-component,
+.task-assignee-component {
     margin-top: 20px;
 }
 
@@ -17,4 +18,14 @@
 .show-assignee-button {
     width: 100%;
     margin-top: 38px;
+}
+
+.cancel-button {
+    margin-top: -35px;
+}
+
+.task-navigation .breadcrumb {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
 }

@@ -21,10 +21,15 @@ export interface IAssignee {
 
 // component properties
 export interface ITask {
+    element: JQuery;
     taskId: number;
+    taskIds: number[];
+    workflowIds: number[];
+    taskType: string;
     hasPreviousTask: boolean;
     title: string;
     taskTitle: string;
+    taskAssignmentUrl: string;
     assigneeOptions: IAssignee;
 }
 

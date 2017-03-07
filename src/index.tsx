@@ -7,10 +7,15 @@ import { ITask, AssigneeOption } from "../components/common";
 import { Panel } from "../components/panel";
 
 const task: ITask = {
+    element: $("#example"),
     taskId: 10023,
+    taskIds: [],
+    workflowIds: [100,101,102,103],
+    taskType: "Translation",
     title: "Assignees",
     taskTitle: "Assignee for each task",
     hasPreviousTask: true,
+    taskAssignmentUrl: "/api/assignment/createtasks/Translation",
     assigneeOptions: {
         option: AssigneeOption.Specific,
         userIds: [3,4,6,7],

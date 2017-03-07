@@ -1,6 +1,7 @@
 var Users = require('./data/users');
 var Tags = require('./data/tags');
 var Tasks = require('./data/tasks');
+var TaskUsers = require('./data/taskUsers');
 
 module.exports = function(app) {
 
@@ -36,11 +37,17 @@ module.exports = function(app) {
 		});
 	});
 
+	// get task assignee
+	app.post('/api/assignment/createtasks/:taskType', function(req, res) {
+		console.log(req.body);
+		res.json({ items: TaskUsers });
+	});
+
 	// POST
-	// create todo and send back all todos after creation
+	// save assignment
 	app.post('/api/assignment', function(req, res) {
 		console.log(req.body);
-		res.json({status: "OK"});
+		res.json({status: "OK", body: req.body});
 	});
 
 	// DELETE

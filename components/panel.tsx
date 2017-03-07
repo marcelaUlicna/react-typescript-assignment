@@ -4,6 +4,8 @@ import { IPanel } from "./common";
 
 import { SwitchPanel } from "./switchPanel";
 
+import { TaskAssignmentTable } from "./taskTable";
+
 interface ISwitcher {
     taskPanel: boolean;
 }
@@ -63,17 +65,17 @@ class TaskAssignmentComponent extends React.Component<IPanel, ISwitcher> {
             return (
                 <div className="task-assignee-component">
                     <h4><strong>{this.props.model.taskTitle}</strong></h4>
-                    <div className="row">
-                        <div className="col-md-9">
-                            <div>Task assignment table</div>
-                        </div>
-                        <div className="col-md-3">
-                            <button
-                                type="button"
-                                className="btn btn-default btn-sm cancel-button pull-right"
-                                onClick={this.props.toggleTaskPanel}>
-                                Cancel
+                    <div>
+                        <button
+                            type="button"
+                            className="btn btn-default btn-sm cancel-button pull-right"
+                            onClick={this.props.toggleTaskPanel}>
+                            Cancel
                             </button>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <TaskAssignmentTable model={this.props.model} />
                         </div>
                     </div>
                 </div>
