@@ -129,8 +129,12 @@ class Table extends React.Component<ITable, void> {
 class UserItemTable extends React.Component<any, void> {
     get style() {
         return {
-            "padding-left": "15px"
+            "paddingLeft": "15px"
         }
+    }
+
+    selectedChanged() {
+
     }
 
     render() {
@@ -149,9 +153,9 @@ class UserItemTable extends React.Component<any, void> {
                         
                         return (
                             <tr>
-                                <input type="hidden" name={assigneeId} value={value.userId} />
                                 <td width="25" style={this.style}>
-                                    <input type="checkbox" checked={value.selected} name={assigneeSelected} />
+                                    <input type="hidden" name={assigneeId} value={value.userId} />
+                                    <input type="checkbox" checked={value.selected} name={assigneeSelected} onChange={this.selectedChanged} />
                                 </td>
                                 <td>{value.name}</td>
                                 <td>{value.company}</td>

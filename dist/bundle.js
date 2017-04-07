@@ -370,13 +370,6 @@
 	        enumerable: true,
 	        configurable: true
 	    });
-	    Object.defineProperty(Select2Ajax.prototype, "texts", {
-	        get: function () {
-	            return this.state.selectedValues.map(function (d) { return d.text; }).join();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
 	    Select2Ajax.prototype.componentDidMount = function () {
 	        var _this = this;
 	        var element = $("#" + this.props.id);
@@ -636,12 +629,14 @@
 	    Object.defineProperty(UserItemTable.prototype, "style", {
 	        get: function () {
 	            return {
-	                "padding-left": "15px"
+	                "paddingLeft": "15px"
 	            };
 	        },
 	        enumerable: true,
 	        configurable: true
 	    });
+	    UserItemTable.prototype.selectedChanged = function () {
+	    };
 	    UserItemTable.prototype.render = function () {
 	        var _this = this;
 	        console.log(this.props);
@@ -654,9 +649,9 @@
 	                var assigneeId = "Tasks[" + _this.props.level + "].Assignees[" + index + "].Id";
 	                var assigneeSelected = "Tasks[" + _this.props.level + "].Assignees[" + index + "].Selected";
 	                return (React.createElement("tr", null,
-	                    React.createElement("input", { type: "hidden", name: assigneeId, value: value.userId }),
 	                    React.createElement("td", { width: "25", style: _this.style },
-	                        React.createElement("input", { type: "checkbox", checked: value.selected, name: assigneeSelected })),
+	                        React.createElement("input", { type: "hidden", name: assigneeId, value: value.userId }),
+	                        React.createElement("input", { type: "checkbox", checked: value.selected, name: assigneeSelected, onChange: _this.selectedChanged })),
 	                    React.createElement("td", null, value.name),
 	                    React.createElement("td", null, value.company)));
 	            }))));

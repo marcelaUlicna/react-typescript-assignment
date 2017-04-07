@@ -28,10 +28,6 @@ export class Select2Ajax extends React.Component<ISelect2Options, ISelect2> {
         return this.state.selectedValues.map(d => d.id).join();
     }
 
-    get texts() {
-        return this.state.selectedValues.map(d => d.text).join();
-    }
-
     constructor(props: any) {
         super(props);
         
