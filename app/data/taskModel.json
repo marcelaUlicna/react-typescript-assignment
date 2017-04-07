@@ -1,0 +1,26 @@
+{
+    "taskId": 10023,
+    "taskIds": [],
+    "workflowIds": [100,101,102,103],
+    "taskType": "Translation",
+    "title": "Assignees",
+    "taskTitle": "Assignee for each task",
+    "hasPreviousTask": true,
+    "taskAssignmentUrl": "/api/assignment/createtasks/Translation",
+    "assigneeOptions": {
+        "option": 0,
+        "userIds": [3,4,6,7],
+        "userModel": [
+            { "id": 3, "text": "Bryant E. Aiello"},
+            { "id": 4, "text": "Linda Alston"},
+            { "id": 6, "text": "Stephen Quincy"},
+            { "id": 7, "text": "Floyd Lloyd"}
+        ],
+        "preferences": "1",
+        "companyTagIds": [],
+        "companyTagModel": [],
+        "userTagIds": [],
+        "userTagModel": [],
+        "taskName": ""
+    }
+}

@@ -2,6 +2,7 @@ var Users = require('./data/users');
 var Tags = require('./data/tags');
 var Tasks = require('./data/tasks');
 var TaskUsers = require('./data/taskUsers');
+var TaskAssignmentModel = require('./data/taskModel');
 
 module.exports = function(app) {
 
@@ -35,6 +36,11 @@ module.exports = function(app) {
 			totalCount: Tasks.totalCount,
     		pagination: Tasks.pagination
 		});
+	});
+
+	// get task model for assignment component
+	app.get('/api/task/:taskId/assignment', function(req, res) {
+		res.json({ model: TaskAssignmentModel });
 	});
 
 	// get task assignee

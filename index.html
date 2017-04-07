@@ -1,47 +1,69 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Assignment</title>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./node_modules/select2-bootstrap-css/select2-bootstrap-css.css">
-        <link rel="stylesheet" href="./node_modules/select2/select2.css">
-        <link rel="stylesheet" href="./dist/app.css">
-    </head>
-    <body>
-        <div class="container">
-            <h3>Example</h3>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Single select</h4>
-                    <div id="selectSingle"></div>
-                </div>
-                <div class="col-md-6">
-                    <h4>Multiple select</h4>
-                    <div id="selectMultiple"></div>
-                </div>
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <title>Assignment</title>
 
-            <div class="well well-white" style="margin-top: 20px;">
-                <form action="/api/assignment" method="post">
-                    <div class="form-group">
-                        <div id="example"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/select2-bootstrap-css/select2-bootstrap-css.css">
+    <link rel="stylesheet" href="./node_modules/select2/select2.css">
+    <link rel="stylesheet" href="./dist/app.css">
+</head>
+
+<body>
+    <div class="container">
+        <h3>Example</h3>
+
+        <!--
+        <div class="well well-white" style="margin-top: 20px;">
+            <form action="/api/assignment" method="post">
+                <div class="form-group">
+                    <div id="example"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        -->
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#assignmentModal">
+            Set users
+        </button>
+
+        <div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form action="/api/assignment" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Manage assignments</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div id="example"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Assign</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Dependencies -->
-        <script src="./node_modules/jquery/dist/jquery.js"></script>
-        <script src="./node_modules/select2/select2.js"></script>
-        <script src="./node_modules/react/dist/react.js"></script>
-        <script src="./node_modules/react-dom/dist/react-dom.js"></script>
-        
+    <!-- Dependencies -->
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/select2/select2.js"></script>
+    <script src="./node_modules/react/dist/react.js"></script>
+    <script src="./node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <!-- Main -->
-        <script src="./dist/bundle.js"></script>
-    </body>
+
+    <!-- Main -->
+    <script src="./dist/bundle.js"></script>
+</body>
+
 </html>
