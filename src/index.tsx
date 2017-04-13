@@ -14,7 +14,7 @@ $.ajax('/api/task/100/assignment').then((data) => {
 
 function renderPicker(task: ITask) {
     ReactDOM.render(
-        <Panel model={task} />,
+        <Panel model={task} showAssigneeButton={true} />,
         document.getElementById("example")
     );
 }

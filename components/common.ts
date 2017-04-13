@@ -33,8 +33,15 @@ export interface ITask {
     assigneeOptions: IAssignee;
 }
 
+// panel state
+export interface ISwitcher {
+    taskPanel: boolean;
+    assigneeOptions: IAssignee;
+}
+
 export interface IPanel {
     model: ITask;
+    showAssigneeButton?: boolean;
     taskAssigneePanel?: boolean;
     toggleTaskPanel?: () => void;
 }

@@ -55,7 +55,7 @@
 	    renderPicker(task);
 	});
 	function renderPicker(task) {
-	    ReactDOM.render(React.createElement(panel_1.Panel, { model: task }), document.getElementById("example"));
+	    ReactDOM.render(React.createElement(panel_1.Panel, { model: task, showAssigneeButton: true }), document.getElementById("example"));
 	}
 
 
@@ -89,32 +89,84 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var React = __webpack_require__(1);
 	var switchPanel_1 = __webpack_require__(4);
+	var taskAssignees_1 = __webpack_require__(11);
 	var Panel = (function (_super) {
 	    __extends(Panel, _super);
 	    function Panel(props) {
-	        return _super.call(this, props) || this;
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {
+	            taskPanel: _this.props.taskAssigneePanel || false,
+	            assigneeOptions: _this.props.model.assigneeOptions
+	        };
+	        _this.togglePanel = _this.togglePanel.bind(_this);
+	        return _this;
 	    }
+	    Panel.prototype.togglePanel = function () {
+	        this.setState(function (prev, props) { return prev.taskPanel = !prev.taskPanel; });
+	    };
 	    Panel.prototype.render = function () {
-	        return (React.createElement("div", null,
-	            React.createElement(AssignentComponent, { model: this.props.model })));
+	        var innerPanel = null;
+	        if (this.props.showAssigneeButton) {
+	            innerPanel = (React.createElement("div", null,
+	                React.createElement(SwitchPanelWrapper, { model: this.props.model, taskAssigneePanel: this.state.taskPanel, toggleTaskPanel: this.togglePanel }),
+	                React.createElement(TaskAssignmentWrapper, { model: this.props.model, taskAssigneePanel: this.state.taskPanel, toggleTaskPanel: this.togglePanel })));
+	        }
+	        else {
+	            innerPanel = (React.createElement("div", { className: "row" },
+	                React.createElement("div", { className: "col-md-12" },
+	                    React.createElement(switchPanel_1.SwitchPanel, { option: this.props.model.assigneeOptions }))));
+	        }
+	        return (React.createElement("div", { className: "assignee-component" },
+	            React.createElement("h4", null,
+	                React.createElement("strong", null, this.props.model.title)),
+	            innerPanel));
 	    };
 	    return Panel;
 	}(React.Component));
 	exports.Panel = Panel;
-	var AssignentComponent = (function (_super) {
-	    __extends(AssignentComponent, _super);
-	    function AssignentComponent() {
+	var SwitchPanelWrapper = (function (_super) {
+	    __extends(SwitchPanelWrapper, _super);
+	    function SwitchPanelWrapper(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {
+	            taskPanel: _this.props.taskAssigneePanel || false,
+	            assigneeOptions: _this.props.model.assigneeOptions
+	        };
+	        return _this;
+	    }
+	    Object.defineProperty(SwitchPanelWrapper.prototype, "sectionStyle", {
+	        get: function () {
+	            return this.props.taskAssigneePanel ? { "display": "none" } : { "display": "block" };
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    SwitchPanelWrapper.prototype.render = function () {
+	        return (React.createElement("div", { className: "row", style: this.sectionStyle },
+	            React.createElement("div", { className: "col-md-9" },
+	                React.createElement(switchPanel_1.SwitchPanel, { option: this.state.assigneeOptions })),
+	            React.createElement("div", { className: "col-md-3" },
+	                React.createElement("button", { type: "button", className: "btn btn-primary show-assignee-button", onClick: this.props.toggleTaskPanel }, "Show task assignees"))));
+	    };
+	    return SwitchPanelWrapper;
+	}(React.Component));
+	var TaskAssignmentWrapper = (function (_super) {
+	    __extends(TaskAssignmentWrapper, _super);
+	    function TaskAssignmentWrapper() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
-	    AssignentComponent.prototype.render = function () {
-	        return (React.createElement("div", { className: "assignee-component" },
-	            React.createElement("h4", null,
-	                React.createElement("strong", null, this.props.model.title)),
-	            React.createElement("div", { className: "row" },
-	                React.createElement("div", { className: "col-md-12" },
-	                    React.createElement(switchPanel_1.SwitchPanel, { option: this.props.model.assigneeOptions })))));
+	    TaskAssignmentWrapper.prototype.render = function () {
+	        if (this.props.taskAssigneePanel) {
+	            return (React.createElement("div", null,
+	                React.createElement("div", { className: "pull-right" },
+	                    React.createElement("button", { type: "button", className: "btn btn-default btn-sm", onClick: this.props.toggleTaskPanel }, "Cancel")),
+	                React.createElement(taskAssignees_1.TaskAssignees, { model: this.props.model })));
+	        }
+	        else {
+	            return React.createElement("div", null);
+	        }
 	    };
-	    return AssignentComponent;
+	    return TaskAssignmentWrapper;
 	}(React.Component));
 
 
@@ -446,6 +498,37 @@
 	    return ByTaskSection;
 	}(React.Component));
 	exports.ByTaskSection = ByTaskSection;
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var React = __webpack_require__(1);
+	var TaskAssignees = (function (_super) {
+	    __extends(TaskAssignees, _super);
+	    function TaskAssignees() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    TaskAssignees.prototype.render = function () {
+	        console.log(this.props.model);
+	        return (React.createElement("div", null, "Here will be tables with assignees for each task."));
+	    };
+	    return TaskAssignees;
+	}(React.Component));
+	exports.TaskAssignees = TaskAssignees;
 
 
 /***/ }
