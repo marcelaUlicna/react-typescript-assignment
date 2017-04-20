@@ -23,7 +23,7 @@ export class AssigneePanel extends React.Component<IAssigneePanel, IAssignee> {
             case AssigneeOption.ByTask:
                 return <ByTaskSection />;
             default:
-                <div>Unknown option</div>;
+                return <div>Unknown option</div>;
         }
     }
 }
