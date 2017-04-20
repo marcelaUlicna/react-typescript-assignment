@@ -2,13 +2,15 @@
 
 import * as React from "react";
 
+import { ComponentStorage } from "../storage";
+
 export interface ISelect2Data {
     id: any;
     text: any;
 }
 
 export interface ISelect2Options {
-    url?: string;
+    url: string;
     data?: ISelect2Data[];
     id: string;
     name: string;
@@ -35,11 +37,13 @@ export class Select2Ajax extends React.Component<ISelect2Options, ISelect2> {
             selectedValues: this.props.data || []
         };
 
+        this.updateStorage();
+
         this.handlePickerChange = this.handlePickerChange.bind(this);
     }
     
     componentDidMount(): void {
-        let element = $(`#${this.props.id}`);
+        const element = $(`#${this.props.id}`);
         element.select2({
             placeholder: this.props.placeholder,
             multiple: this.props.multiple === true,
@@ -89,8 +93,15 @@ export class Select2Ajax extends React.Component<ISelect2Options, ISelect2> {
                 });
             } else {
                 console.log("no value changed");
+                return;
             }
         }
+
+        this.updateStorage();
+    }
+
+    updateStorage() {
+        ComponentStorage.SetValue(this.props.name, this.ids);
     }
 
     render() {

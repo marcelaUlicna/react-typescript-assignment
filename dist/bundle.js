@@ -89,7 +89,7 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var React = __webpack_require__(1);
 	var switchPanel_1 = __webpack_require__(4);
-	var taskAssignees_1 = __webpack_require__(11);
+	var taskAssignees_1 = __webpack_require__(12);
 	var Panel = (function (_super) {
 	    __extends(Panel, _super);
 	    function Panel(props) {
@@ -189,19 +189,26 @@
 	var React = __webpack_require__(1);
 	var common_1 = __webpack_require__(5);
 	var assigneePanel_1 = __webpack_require__(6);
+	var storage_1 = __webpack_require__(9);
 	var SwitchPanel = (function (_super) {
 	    __extends(SwitchPanel, _super);
 	    function SwitchPanel(props) {
 	        var _this = _super.call(this, props) || this;
+	        _this.name = "AssignmentOption";
 	        _this.state = {
 	            radioValue: _this.props.option.option
 	        };
+	        storage_1.ComponentStorage.SetValue(_this.name, _this.state.radioValue);
 	        _this.handleOptionChange = _this.handleOptionChange.bind(_this);
 	        return _this;
 	    }
 	    SwitchPanel.prototype.handleOptionChange = function (event) {
 	        var value = event.target.value;
 	        this.setState({ radioValue: Number(common_1.AssigneeOption[value]) });
+	        this.updateStorage(common_1.AssigneeOption[value]);
+	    };
+	    SwitchPanel.prototype.updateStorage = function (value) {
+	        storage_1.ComponentStorage.SetValue(this.name, value);
 	    };
 	    SwitchPanel.prototype.render = function () {
 	        return (React.createElement("div", null,
@@ -256,8 +263,8 @@
 	var React = __webpack_require__(1);
 	var common_1 = __webpack_require__(5);
 	var specific_1 = __webpack_require__(7);
-	var auto_1 = __webpack_require__(9);
-	var task_1 = __webpack_require__(10);
+	var auto_1 = __webpack_require__(10);
+	var task_1 = __webpack_require__(11);
 	var AssigneePanel = (function (_super) {
 	    __extends(AssigneePanel, _super);
 	    function AssigneePanel(props) {
@@ -274,7 +281,7 @@
 	            case common_1.AssigneeOption.ByTask:
 	                return React.createElement(task_1.ByTaskSection, null);
 	            default:
-	                React.createElement("div", null, "Unknown option");
+	                return React.createElement("div", null, "Unknown option");
 	        }
 	    };
 	    return AssigneePanel;
@@ -334,6 +341,7 @@
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var React = __webpack_require__(1);
+	var storage_1 = __webpack_require__(9);
 	var Select2Ajax = (function (_super) {
 	    __extends(Select2Ajax, _super);
 	    function Select2Ajax(props) {
@@ -341,6 +349,7 @@
 	        _this.state = {
 	            selectedValues: _this.props.data || []
 	        };
+	        _this.updateStorage();
 	        _this.handlePickerChange = _this.handlePickerChange.bind(_this);
 	        return _this;
 	    }
@@ -403,8 +412,13 @@
 	            }
 	            else {
 	                console.log("no value changed");
+	                return;
 	            }
 	        }
+	        this.updateStorage();
+	    };
+	    Select2Ajax.prototype.updateStorage = function () {
+	        storage_1.ComponentStorage.SetValue(this.props.name, this.ids);
 	    };
 	    Select2Ajax.prototype.render = function () {
 	        return React.createElement("input", { className: "full-width", name: this.props.name, type: "text", id: this.props.id, value: this.ids, onChange: this.handlePickerChange });
@@ -416,6 +430,30 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var ComponentStorage = (function () {
+	    function ComponentStorage() {
+	    }
+	    ComponentStorage.SetValue = function (id, value) {
+	        ComponentStorage.values[id] = value;
+	    };
+	    ComponentStorage.GetValue = function (id) {
+	        return ComponentStorage.values[id];
+	    };
+	    ComponentStorage.GetStorage = function () {
+	        return ComponentStorage.values;
+	    };
+	    return ComponentStorage;
+	}());
+	ComponentStorage.values = {};
+	exports.ComponentStorage = ComponentStorage;
+
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -466,7 +504,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -501,7 +539,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -517,13 +555,14 @@
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var React = __webpack_require__(1);
+	var storage_1 = __webpack_require__(9);
 	var TaskAssignees = (function (_super) {
 	    __extends(TaskAssignees, _super);
 	    function TaskAssignees() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
 	    TaskAssignees.prototype.render = function () {
-	        console.log(this.props.model);
+	        console.log(storage_1.ComponentStorage.GetStorage());
 	        return (React.createElement("div", null, "Here will be tables with assignees for each task."));
 	    };
 	    return TaskAssignees;

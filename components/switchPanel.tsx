@@ -2,17 +2,22 @@ import * as React from "react";
 
 import { IAssignee, IPanel, AssigneeOption, ISwitchPanel } from "./common";
 import { AssigneePanel } from "./assigneePanel";
+import { ComponentStorage } from "./storage";
 
 interface IRadio {
     radioValue: AssigneeOption;
 }
 
 export class SwitchPanel extends React.Component<ISwitchPanel, IRadio> {
+    private name: string = "AssignmentOption";
+    
     constructor(props: any) {
         super(props);
         this.state = {
             radioValue: this.props.option.option
         };
+
+        ComponentStorage.SetValue(this.name, this.state.radioValue);
  
         this.handleOptionChange = this.handleOptionChange.bind(this);
     }
@@ -20,6 +25,11 @@ export class SwitchPanel extends React.Component<ISwitchPanel, IRadio> {
     handleOptionChange(event: any) {
        const value = event.target.value;
        this.setState({ radioValue: Number(AssigneeOption[value]) });
+       this.updateStorage(AssigneeOption[value]);
+    }
+
+    updateStorage(value: any) {
+        ComponentStorage.SetValue(this.name, value);
     }
 
     render() {

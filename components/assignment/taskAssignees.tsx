@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { IPanel } from '../common';
+import { ComponentStorage } from "../storage";
 
 export class TaskAssignees extends React.Component<IPanel, void> {
     render() {
-        console.log(this.props.model);
+        console.log(ComponentStorage.GetStorage());
         
         return (
             <div>
