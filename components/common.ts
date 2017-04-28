@@ -60,3 +60,24 @@ export interface IAssigneePanel {
 export interface ISpecific {
     users: ISelect2Data[];
 }
+
+// assignee table properties
+
+export interface ITaskAssigneeTable {
+    workflowId: number;
+    workflowName: string;
+    taskName: string;
+    language: string;
+    taskUsers: ITaskAssignee[];
+}
+
+export interface ITaskAssignee {
+    id: number;
+    name: string;
+    gravatar: string;
+    companyId: number;
+    companyName: string;
+    companyTagIds: number[];
+    userTags: number[];
+    language: string;
+}

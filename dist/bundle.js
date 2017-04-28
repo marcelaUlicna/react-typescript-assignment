@@ -470,6 +470,7 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var React = __webpack_require__(1);
 	var select2_1 = __webpack_require__(8);
+	var storage_1 = __webpack_require__(9);
 	var AutoSection = (function (_super) {
 	    __extends(AutoSection, _super);
 	    function AutoSection(props) {
@@ -479,11 +480,13 @@
 	            companyTags: [],
 	            userTags: []
 	        };
+	        storage_1.ComponentStorage.SetValue("preferences", _this.state.preferences);
 	        _this.handlePreferenceChange = _this.handlePreferenceChange.bind(_this);
 	        return _this;
 	    }
 	    AutoSection.prototype.handlePreferenceChange = function (event) {
 	        this.setState({ preferences: event.target.value });
+	        storage_1.ComponentStorage.SetValue("preferences", event.target.value);
 	    };
 	    AutoSection.prototype.render = function () {
 	        return (React.createElement("div", { className: "row" },
@@ -558,11 +561,23 @@
 	var storage_1 = __webpack_require__(9);
 	var TaskAssignees = (function (_super) {
 	    __extends(TaskAssignees, _super);
-	    function TaskAssignees() {
-	        return _super !== null && _super.apply(this, arguments) || this;
+	    function TaskAssignees(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.taskAssingmentUrl = "/api/assignment/createtasks/";
+	        _this.taskAssingmentUrl += _this.props.model.taskType;
+	        return _this;
 	    }
+	    TaskAssignees.prototype.componentWillMount = function () {
+	        var model = {
+	            workflowIds: this.props.model.workflowIds,
+	            assigneeOptions: storage_1.ComponentStorage.GetStorage()
+	        };
+	        $.post(this.taskAssingmentUrl, model).then(function (result) {
+	            console.log("result from server");
+	            console.log(result);
+	        });
+	    };
 	    TaskAssignees.prototype.render = function () {
-	        console.log(storage_1.ComponentStorage.GetStorage());
 	        return (React.createElement("div", null, "Here will be tables with assignees for each task."));
 	    };
 	    return TaskAssignees;

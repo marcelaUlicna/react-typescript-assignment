@@ -2,6 +2,8 @@ import * as React from "react";
 
 import { Select2Ajax, ISelect2Data } from "../select2/select2";
 
+import { ComponentStorage } from "../storage";
+
 interface IAuto {
     preferences: string;
     companyTags: ISelect2Data[];
@@ -18,11 +20,14 @@ export class AutoSection extends React.Component<any, IAuto> {
             userTags: []
         };
 
+        ComponentStorage.SetValue("preferences", this.state.preferences);
+
         this.handlePreferenceChange = this.handlePreferenceChange.bind(this);
     }
 
     handlePreferenceChange(event: any) {
         this.setState({ preferences: event.target.value });
+        ComponentStorage.SetValue("preferences", event.target.value);
     }
     
     render() {

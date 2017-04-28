@@ -38,14 +38,31 @@ module.exports = function(app) {
 		});
 	});
 
-	// get task model for assignment component
+	// get task model for assignment component - test data to assignment component
 	app.get('/api/task/:taskId/assignment', function(req, res) {
 		res.json({ model: TaskAssignmentModel });
 	});
 
 	// get task assignee
 	app.post('/api/assignment/createtasks/:taskType', function(req, res) {
+		/*
+		{ 
+			workflowIds: [ '100', '101', '102', '103' ],
+			assigneeOptions:
+			{ 
+				AssignmentOption: '1',
+				userPicker: '3,4,6,7',
+				preferences: '1;3;4',
+				companyTagPicker: '6,7',
+				userTagPicker: '' 
+			} 
+		}
+		*/
+		
 		console.log(req.body);
+
+		let taskUsers = getTaskUsers(req.body);
+
 		res.json({ items: TaskUsers });
 	});
 
@@ -108,4 +125,10 @@ function compare(a, b) {
 	}
 
 	return 0;
+}
+
+function getTaskUsers(model) {
+	let taskUsersVM = {
+
+	};
 }
