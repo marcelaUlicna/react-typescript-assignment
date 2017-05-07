@@ -4,7 +4,7 @@ import { IPanel, AssigneeOption, ISwitcher } from "./common";
 
 import { SwitchPanel } from "./switchPanel";
 
-import { TaskAssignees } from "./assignment/taskAssignees";
+import { TaskAssigneeWrapper } from "./assignment/taskAssigneeWrapper";
 
 export class Panel extends React.Component<IPanel, ISwitcher> {
     constructor(props: any) {
@@ -82,9 +82,9 @@ class TaskAssignmentWrapper extends React.Component<IPanel, ISwitcher> {
             return (
                 <div>
                     <div className="pull-right">
-                        <button type="button" className="btn btn-default btn-sm" onClick={this.props.toggleTaskPanel}>Cancel</button>
+                        <button type="button" className="btn btn-default btn-sm cancel-button" onClick={this.props.toggleTaskPanel}>Cancel</button>
                     </div>
-                    <TaskAssignees model={this.props.model} />
+                    <TaskAssigneeWrapper model={this.props.model} />
                 </div>
             );
         } else {

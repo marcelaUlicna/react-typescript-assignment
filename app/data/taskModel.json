@@ -9,13 +9,8 @@
     "taskAssignmentUrl": "/api/assignment/createtasks/Translation",
     "assigneeOptions": {
         "option": 0,
-        "userIds": [3,4,6,7],
-        "userModel": [
-            { "id": 3, "text": "Bryant E. Aiello"},
-            { "id": 4, "text": "Linda Alston"},
-            { "id": 6, "text": "Stephen Quincy"},
-            { "id": 7, "text": "Floyd Lloyd"}
-        ],
+        "userIds": [],
+        "userModel": [],
         "preferences": "1",
         "companyTagIds": [],
         "companyTagModel": [],

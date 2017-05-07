@@ -1,8 +1,11 @@
 var Users = require('./data/users');
 var Tags = require('./data/tags');
 var Tasks = require('./data/tasks');
-var TaskUsers = require('./data/taskUsers');
 var TaskAssignmentModel = require('./data/taskModel');
+
+// models
+var WorkflowTaskModel = require('./models/workflowTasks');
+var UserModel = require('./models/users');
 
 module.exports = function(app) {
 
@@ -63,7 +66,7 @@ module.exports = function(app) {
 
 		let taskUsers = getTaskUsers(req.body);
 
-		res.json({ items: TaskUsers });
+		res.json({ items: taskUsers });
 	});
 
 	// POST
@@ -127,8 +130,54 @@ function compare(a, b) {
 	return 0;
 }
 
-function getTaskUsers(model) {
-	let taskUsersVM = {
+/**
+ * Business logic 
+ */
 
-	};
+// Specific = 0, Auto = 1, ByTask = 2
+function getTaskUsers(model) {
+	let taskUsersVM = [];
+	const assigneeOptionNumber = Number(model.assigneeOptions.AssignmentOption);
+
+	model.workflowIds.forEach((id) => {
+		let wf = WorkflowTaskModel.find(w => w.workflowId == id);
+		let users = [];
+		let fromTask = null;
+
+		switch(assigneeOptionNumber) {
+			case 0:
+				users = SpecificUsers(model.assigneeOptions.userPicker);
+				break;
+			case 1:
+				users = AutoUsers(model);
+				break;
+			case 2:
+				fromTask = FromTaskUsers(model.assigneeOptions.taskPicker);
+				break;
+			default:
+				break;
+		}
+		
+		taskUsersVM.push({
+			"workflow": wf,
+			"users": users,
+			"fromTask": fromTask
+		});
+	});
+
+	return taskUsersVM;
+}
+
+function SpecificUsers(userIds) {
+	let ids = userIds.split(',').map(m => Number(m));
+	let validUsers = UserModel.filter((user) => {
+		return ids.indexOf(user.id) != -1;
+	});
+
+	let users = [];
+	validUsers.forEach((vu) => {
+		users.push(vu);
+	});
+
+	return users;
 }

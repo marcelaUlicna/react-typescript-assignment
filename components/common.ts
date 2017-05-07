@@ -64,20 +64,25 @@ export interface ISpecific {
 // assignee table properties
 
 export interface ITaskAssigneeTable {
+    workflow: ITaskWorkflow;
+    users: ITaskAssignee[];
+    fromTask?: string;
+}
+
+export interface ITaskWorkflow {
     workflowId: number;
     workflowName: string;
+    taskType: string;
     taskName: string;
     language: string;
-    taskUsers: ITaskAssignee[];
 }
 
 export interface ITaskAssignee {
     id: number;
     name: string;
     gravatar: string;
-    companyId: number;
     companyName: string;
-    companyTagIds: number[];
+    companyTags: number[];
     userTags: number[];
-    language: string;
+    languages: string[];
 }
