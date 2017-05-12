@@ -12,7 +12,7 @@
         { "id": 11, "name": "Nancy Patterson", "companyName": "Pisani", "languages": ["Italian"], "userTags": [2], "companyTags": [7,8], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
         { "id": 12, "name": "Ruthie Myers", "companyName": "Pisani", "languages": ["Italian"], "userTags": [2,3], "companyTags": [7,8], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
         { "id": 13, "name": "Eleni Wolfe", "companyName": "Matraia LU", "languages": ["Italian"], "userTags": [], "companyTags": [8], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
-        { "id": 14, "name": "Grace Ramirez", "companyName": "IMatraia LUMC", "languages": ["Italian"], "userTags": [], "companyTags": [], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
+        { "id": 14, "name": "Grace Ramirez", "companyName": "Matraia LU", "languages": ["Italian"], "userTags": [], "companyTags": [], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
         { "id": 15, "name": "Barbara Roberts", "companyName": "Matraia LU", "languages": ["Italian"], "userTags": [], "companyTags": [8], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
         { "id": 16, "name": "William Miller", "companyName": "IMC", "languages": ["German"], "userTags": [], "companyTags": [5,7,8], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},
         { "id": 17, "name": "Marie Ramos", "companyName": "IMC", "languages": ["German"], "userTags": [], "companyTags": [5,7,8], "gravatar": "//www.gravatar.com/avatar/4fdbd2e2227bd1b252c292e53c2595a0?s=32"},

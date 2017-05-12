@@ -26,6 +26,7 @@ export class SwitchPanel extends React.Component<ISwitchPanel, IRadio> {
        const value = event.target.value;
        this.setState({ radioValue: Number(AssigneeOption[value]) });
        this.updateStorage(AssigneeOption[value]);
+       this.props.disableButton(Number(AssigneeOption[value]) == AssigneeOption.ByTask);
     }
 
     updateStorage(value: any) {

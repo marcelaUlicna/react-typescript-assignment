@@ -1,0 +1,33 @@
+[{
+  "language": "German",
+  "companyName": "IMC",
+  "preference": 1
+},{
+  "language": "Italian",
+  "companyName": "Alpha Beta",
+  "preference": 1
+},{
+  "language": "Italian",
+  "companyName": "IMC",
+  "preference": 2
+},{
+  "language": "Italian",
+  "companyName": "Pisani",
+  "preference": 3
+},{
+  "language": "Italian",
+  "companyName": "Matraia LU",
+  "preference": 4
+},{
+  "language": "Spanish",
+  "companyName": "Food Mart",
+  "preference": 1
+},{
+  "language": "Spanish",
+  "companyName": "Cortes",
+  "preference": 2
+},{
+  "language": "French",
+  "companyName": "Market Basket",
+  "preference": 1
+}]

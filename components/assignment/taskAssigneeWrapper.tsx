@@ -38,8 +38,8 @@ export class TaskAssigneeWrapper extends React.Component<IPanel, IModelState> {
         if (this.state.isLoaded) {
             return (
                 <div>
-                    {this.model.map((prop) =>
-                        <TaskAssigneeSection workflow={prop.workflow} users={prop.users} key={prop.workflow.workflowId} />
+                    {this.model.map((prop, index) =>
+                        <TaskAssigneeSection workflow={prop.workflow} users={prop.users} key={prop.workflow.workflowId} taskIndex={index} />
                     )}
                 </div>
             );

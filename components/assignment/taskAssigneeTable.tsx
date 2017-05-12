@@ -2,7 +2,20 @@ import * as React from 'react';
 
 import { ITaskAssignee } from '../common';
 
-export class TaskAssigneeTable extends React.Component<ITaskAssignee, void> {
+interface ISelectAssignee {
+    selected: boolean;
+}
+
+export class TaskAssigneeTable extends React.Component<ITaskAssignee, ISelectAssignee> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            selected: true
+        };
+
+        this.handleOnChange = this.handleOnChange.bind(this);
+    }
+    
     get firstCell() {
         return {
             "style": "padding-left: 15px"
@@ -21,16 +34,37 @@ export class TaskAssigneeTable extends React.Component<ITaskAssignee, void> {
         };
     }
 
+    get elementId() {
+        return `Tasks_${this.props.taskIndex}__Assignees_${this.props.assigneeIndex}__Selected`;
+    }
+
+    get elementName() {
+        return `AdvancedAssignment.Tasks[${this.props.taskIndex}].Assignees[${this.props.assigneeIndex}].Selected`;
+    }
+
+    get elementHiddenId() {
+        return `AdvancedAssignment.Tasks[${this.props.taskIndex}].Assignees[${this.props.assigneeIndex}].Id`;
+    }
+
+    handleOnChange() {
+        this.setState((prev, props) => {
+            let selected = prev.selected;
+            prev.selected = !selected;
+            return prev;
+        });
+    }
+
     render() {
         return (
             <tr>
                 <td width="25" style={this.firstCell}>
-                    <input checked={true}
+                    <input type="hidden" name={this.elementHiddenId} value={this.props.id} />
+                    <input checked={this.state.selected}
                         className="checkbox"
-                        id="Tasks_0__Assignees_0__Selected"
-                        name="AdvancedAssignment.Tasks[0].Assignees[0].Selected"
+                        id={this.elementId}
+                        name={this.elementName}
                         type="checkbox"
-                        value="true" />
+                        onChange={this.handleOnChange} />
                 </td>
                 <td style={this.valign} width="250">
                     <a href="#" className="user-link">

@@ -58,18 +58,30 @@ class SwitchPanelWrapper extends React.Component<IPanel, ISwitcher> {
         super(props);
         this.state = { 
             taskPanel: this.props.taskAssigneePanel || false,
-            assigneeOptions: this.props.model.assigneeOptions
+            assigneeOptions: this.props.model.assigneeOptions,
+            disable: false
         };
+
+        this.handleDisableButton = this.handleDisableButton.bind(this);
+    }
+
+    handleDisableButton(disable: boolean) {
+        this.setState({disable: disable});
     }
 
     render() {
         return (
             <div className="row" style={this.sectionStyle}>
                     <div className="col-md-9">
-                        <SwitchPanel option={this.state.assigneeOptions} />
+                        <SwitchPanel option={this.state.assigneeOptions} disableButton={this.handleDisableButton} />
                     </div>
                     <div className="col-md-3">
-                        <button type="button" className="btn btn-primary show-assignee-button" onClick={this.props.toggleTaskPanel}>Show task assignees</button>
+                        <input 
+                            type="button" 
+                            className="btn btn-primary show-assignee-button" 
+                            value="Show task assignees"
+                            onClick={this.props.toggleTaskPanel}
+                            disabled={this.state.disable} />
                     </div>
                 </div>
         );

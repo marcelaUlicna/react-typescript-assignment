@@ -13,10 +13,12 @@ export class TaskAssigneeSection extends React.Component<ITaskAssigneeTable, voi
     render() {
         let body;
         if (this.props.users && this.props.users.length) {
-            body = this.props.users.map((u) => 
+            body = this.props.users.map((u, index) => 
                 <TaskAssigneeTable 
                     key={u.id}
-                    id={u.id} 
+                    id={u.id}
+                    taskIndex={this.props.taskIndex}
+                    assigneeIndex={index}
                     name={u.name} 
                     companyName={u.companyName} 
                     gravatar={u.gravatar}

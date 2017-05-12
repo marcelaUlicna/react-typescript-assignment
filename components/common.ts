@@ -37,6 +37,8 @@ export interface ITask {
 export interface ISwitcher {
     taskPanel: boolean;
     assigneeOptions: IAssignee;
+    disable?: boolean;
+    //toggleAssigneeOption?: () => void;
 }
 
 export interface IPanel {
@@ -48,6 +50,7 @@ export interface IPanel {
 
 export interface ISwitchPanel {
     option: IAssignee;
+    disableButton?: (disabled: boolean) => void;
 }
 
 export interface IAssigneePanel {
@@ -66,6 +69,7 @@ export interface ISpecific {
 export interface ITaskAssigneeTable {
     workflow: ITaskWorkflow;
     users: ITaskAssignee[];
+    taskIndex: number;
     fromTask?: string;
 }
 
@@ -79,6 +83,8 @@ export interface ITaskWorkflow {
 
 export interface ITaskAssignee {
     id: number;
+    taskIndex: number;
+    assigneeIndex: number;
     name: string;
     gravatar: string;
     companyName: string;
