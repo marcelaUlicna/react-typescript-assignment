@@ -8,3 +8,12 @@
   - auto option: by preference
   - disable Show task assignee button for by task option
   - functionality for selected users
+
+
+### Build information
+
+Compile react script
+`webpack`
+
+Run server
+`node server.js`
