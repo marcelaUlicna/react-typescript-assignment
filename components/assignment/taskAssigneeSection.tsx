@@ -6,7 +6,7 @@ import { TaskAssigneeTable } from './taskAssigneeTable';
 export class TaskAssigneeSection extends React.Component<ITaskAssigneeTable, void> {
     get noSupplierStyle() {
         return {
-            "style": "color: red"
+            "color": "red"
         };
     }
 
